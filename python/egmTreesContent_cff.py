@@ -161,6 +161,7 @@ PhoProbeVariablesToStore = cms.PSet(
     ph_sieip         = cms.string("full5x5_showerShapeVariables.sigmaIetaIphi"),
     ph_ESsigma       = cms.string("full5x5_showerShapeVariables.effSigmaRR"),
     ph_hoe           = cms.string("hadronicOverEm"),
+    ph_hTowOverE     = cms.string("hadTowOverEm"),
 
 #pho mva
     ph_mva80X       = cms.InputTag("photonMVAValueMapProducer:PhotonMVAEstimatorRun2Spring16NonTrigV1Values"),

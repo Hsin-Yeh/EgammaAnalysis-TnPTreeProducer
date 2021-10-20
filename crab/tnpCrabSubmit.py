@@ -4,20 +4,21 @@ import os
 #
 # Example script to submit TnPTreeProducer to crab
 #
-submitVersion = "2020-06-09" # add some date here
+submitVersion = "2021-10-19" # add some date here
 doL1matching  = False
 
 defaultArgs   = ['doEleID=True','doPhoID=True','doTrigger=True']
-mainOutputDir = '/store/group/phys_egamma/tnpTuples/%s/%s' % (os.environ['USER'], submitVersion)
+mainOutputDir = '/store/user/%s/exodiphoton/tnpTuples/%s' % (os.environ['USER'], submitVersion)
 
 # Logging the current version of TnpTreeProducer here, such that you can find back what the actual code looked like when you were submitting
-os.system('mkdir -p /eos/cms/%s' % mainOutputDir)
+os.system('mkdir -p ./crab_%s' % submitVersion)
 os.system('(git log -n 1;git diff) &> /eos/cms/%s/git.log' % mainOutputDir)
 
 
 #
 # Common CRAB settings
 #
+
 from CRABClient.UserUtilities import config
 config = config()
 
@@ -34,20 +35,19 @@ config.Data.inputDataset               = ''
 config.Data.inputDBS                   = 'global'
 config.Data.publication                = False
 config.Data.allowNonValidInputDataset  = True
-config.Site.storageSite                = 'T2_CH_CERN'
+config.Site.storageSite                = 'T2_TW_NCHC'
 
-
+# NOTE LumiMask path Updated
 #
 # Certified lumis for the different eras
 #   (seems the JSON for UL2017 is slightly different from rereco 2017, it's not documented anywhere though)
 #
 def getLumiMask(era):
-  if   era=='2016':   return 'https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions16/13TeV/ReReco/Final/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt'
-  elif era=='2017':   return 'https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions17/13TeV/ReReco/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt'
-  elif era=='2018':   return 'https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions18/13TeV/PromptReco/Cert_314472-325175_13TeV_PromptReco_Collisions18_JSON.txt'
-  elif era=='UL2017': return 'https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions17/13TeV/Legacy_2017/Cert_294927-306462_13TeV_UL2017_Collisions17_GoldenJSON.txt'
-  elif era=='UL2018': return 'https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions18/13TeV/PromptReco/Cert_314472-325175_13TeV_PromptReco_Collisions18_JSON.txt'
-
+  if   era=='2016':   return 'https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions16/13TeV/ReReco/Final/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt'
+  elif era=='2017':   return 'https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions17/13TeV/ReReco/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt'
+  elif era=='2018':   return 'https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions18/13TeV/PromptReco/Cert_314472-325175_13TeV_PromptReco_Collisions18_JSON.txt'
+  elif era=='UL2017': return 'https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions17/13TeV/Legacy_2017/Cert_294927-306462_13TeV_UL2017_Collisions17_GoldenJSON.txt'
+  elif era=='UL2018': return 'https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions18/13TeV/PromptReco/Cert_314472-325175_13TeV_PromptReco_Collisions18_JSON.txt'
 
 #
 # Submit command
