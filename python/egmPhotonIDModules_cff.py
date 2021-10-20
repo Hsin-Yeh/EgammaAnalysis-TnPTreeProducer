@@ -87,7 +87,7 @@ def setIDs(process, options):
     highPtIDCuts = ["MinPtCut_0", "PhoSCEtaMultiRangeCut_0", "PhoSingleTowerHadOverEmCut_0", "PhoFull5x5SigmaIEtaIEtaCut_0", "PhoFull5x5R9Cut_0", "PhoAnyPFIsoCut_highPtID_0", "PhoAnyPFIsoCut_highPtID_1"]
 
     for cut in highPtIDCuts:
-      otherCuts = cms.vstring([i for i in allCuts if i!=cut])
+      otherCuts = cms.vstring([i for i in highPtIDCuts if i!=cut])
       cutName   = cut.replace('_','').replace('0','') # special case for the PhoAnyPFIsoWithEACut_1
       for wp in ['Loose']:
         addNewProbeModule(probeSequence, 'CutBased%sHighPtIDV2%s' % (wp, cutName), 'egmPhotonIDs:cutBasedPhotonID-highPtID-V2-%s' % wp.lower(), cutNamesToMask=otherCuts)
