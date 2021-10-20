@@ -1,3 +1,66 @@
+# My Notes 
+
+Below I list some relevant files for implementing the highPtID. There will be three repositories with several files each
+
+# Step 1: Create Ntuples
+
+[Twiki TnP step1](https://twiki.cern.ch/twiki/bin/view/CMSPublic/Step1TagAndProbe)
+
+Here we create the ntuples for later fitting. Two repository is included. 
+
+### Repo1: EgammaAnalysis-TnPTreeProducer
+
+https://github.com/Hsin-Yeh/EgammaAnalysis-TnPTreeProducer/commit/c69375f02361fe213e1ef7c75ebbf40405dadefb
+
+#### TnPTreeProducer_cfg.py
+
+- This is the main config. Change the cuts and HLT triggers according to the analysis
+- The cut could be minimum, since individual cuts could be added in step2 fitting code
+- [Egamma recommended HLT for TnP](https://twiki.cern.ch/twiki/bin/view/CMS/EgHLTRunIISummary)
+
+#### egmPhotonIDModules_cff.py
+- Store the id modules 
+
+#### egmTreesContent_cff.py
+- Store the output variables for step2 fitting 
+- These variables are important if you made a loose cut at step1 ntuples, and would like to study different working points at step2.
+
+### Repo2: RecoEgamma/PhotonIdentification
+
+https://github.com/Hsin-Yeh/cmssw/commit/a1d6727bd9420e1735e75f7015068f6b258ee3a4#diff-793d9de606f085f5b335e649d93856aefa28da36e50bc9bb7511bb9f3dbac144
+
+#### cutBasedPhotonID_tools_highPtID.py
+- Define the ID compositions
+
+#### PhoAnyPFIso_highPtID.cc
+- PhoIsolation correction
+- Needs scram b
+
+#### cutBasedPhotonID_highPtID_cff.py
+- Cut values
+- EA correction file path
+
+#### data/Fall17/*_V2_highPtID.txt
+- effective area
+- kappa
+- alpha
+
+# Step 2: Fitting
+
+Here we do the fitting
+
+### Repo3: egm_tnp_analysis
+
+https://github.com/Hsin-Yeh/egm_tnp_analysis
+
+#### etc/config/settings_highPtID.py
+
+- This is the file for setting the working points you want to study
+- New working points, cuts could be added easily in this config file
+
+
+
+
 # EgammaAnalysis-TnPTreeProducer
 
 Package of the EGamma group to produce Tag-and-Probe trees
